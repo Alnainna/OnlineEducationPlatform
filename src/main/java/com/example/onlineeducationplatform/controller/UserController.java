@@ -96,3 +96,4 @@ public class UserController {
         return ResponseEntity.ok(Map.of("status", "OK", "message", "Backend API running"));
     }
 }
+// REST API Implementation
