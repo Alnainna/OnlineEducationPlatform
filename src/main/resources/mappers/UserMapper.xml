@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.onlineeducationplatform.mapper.UserMapper">
+
+    <resultMap id="userResultMap" type="com.example.onlineeducationplatform.entity.User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="email" property="email"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+    </resultMap>
+
+    <insert id="insertUser" parameterType="com.example.onlineeducationplatform.entity.User">
+        INSERT INTO users (username, password, email)
+        VALUES (#{username}, #{password}, #{email})
+    </insert>
+
+    <select id="selectAllUsers" resultMap="userResultMap">
+        SELECT id, username, password, email, created_at, updated_at
+        FROM users ORDER BY created_at DESC
+    </select>
+
+    <select id="selectUserById" parameterType="int" resultMap="userResultMap">
+        SELECT id, username, password, email, created_at, updated_at
+        FROM users WHERE id = #{id}
+    </select>
+
+    <select id="selectUserByUsername" parameterType="string" resultMap="userResultMap">
+        SELECT id, username, password, email, created_at, updated_at
+        FROM users WHERE username = #{username}
+    </select>
+
+    <update id="updateUser" parameterType="com.example.onlineeducationplatform.entity.User">
+        UPDATE users SET username = #{username}, password = #{password}, email = #{email}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteUserById" parameterType="int">
+        DELETE FROM users WHERE id = #{id}
+    </delete>
+
+    <select id="countUsers" resultType="int">
+        SELECT COUNT(*) FROM users
+    </select>
+
+</mapper>
